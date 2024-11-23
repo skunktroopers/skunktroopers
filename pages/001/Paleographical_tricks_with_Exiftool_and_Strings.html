@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BooyahBay</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <!-- Custom Styles -->
+    <link href="../style.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../../brand_logo.ico" />
+</head>
+
+<body id="top-of-page" class="container-fluid">
+
+    <!-- Navigation -->
+    <nav>
+        <div class="dropdown">
+            <button class="dropbtn">Details</button>
+            <div class="dropdown-content">
+                <a href="../about.html"><div class="icon_text"><img src="../images/about.png" width="20px" /></div>  About</a>
+                <a href="../contacts.html"><div class="icon_text"><img src="../images/contacts.png" width="25px" /></div>  Contact</a>
+                <a href="../../index.html"><div class="icon_text"><img src="../images/blog.png" width="22px" /></div>  Blog</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="title">
+            <h2><strong>Paleographical tricks with Exiftool and Strings</strong></h2>
+            <h5>Analyzing document metadata, perhaps for recon purposes</h5>
+
+        </div>
+
+
+    </header>
+
+    <div class="greyish" style="text-align:center">
+        <div class="row_project_page">
+            <div class="textual_content">
+                <div id="me">
+                    <img id="my_picture" src="../images/Me.png" />
+                    <p>
+                        <strong>Mr. Naraku</strong><br />
+                        Unexpert Bosun
+                    <p>
+                </div>
+
+
+                <div id="date">March 2nd, 2024</div>
+                <p>
+
+                    This post discusses mundane afternoons, document metadata, and Exiftool, a useful paleographical instrument for those who enjoy reading between the lines. I recently picked up one or two new tricks while digging up treasure chests from the deep sands of the internet. After finding all that gold, one could not help but ask who put it there in the first place.
+                </p>
+
+                <div class="index">
+                    <p>Here's the <strong>contents</strong>:</p>
+                    <p></p>
+                    <ul>
+                        <li>
+                            <a href="#part1">The story of the treasure chest</a>
+                        </li>
+                        <li>
+                            <a href="#part2">What we look for in metadata</a>
+                        </li>
+                        <li>
+                            <a href="#part3">What we are going to use </a>
+                        </li>
+                        <li>
+                            <a href="#part4">The Indonesian thief </a>
+                        </li>
+                        <li>
+                            <a href="#part5">Exiftool to cast wider nets </a>
+                        </li>
+                        <li>
+                            <a href="#part6">Strings, regex and phishing </a>
+                        </li>
+                        <li>
+                            <a href="#bibliography">Related links</a>
+
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <h6 class="titleh" id="part1">The story of the treasure chest</h6>
+                <hr class="black-line">
+
+                <p>
+                    I was recently venturing through uncharted territories of the internet when I stumbled upon a mysterious magnet link claiming to lead to a variety of materials from many particularly expensive advanced cybersecurity courses. I am not going to disclose the name of the issuing organization, let’s just say it begins with an S- and it ends with -ANS.
+                    Do you have any remote idea of how much such types of courses can cost nowadays? We are talking about thousands of bucks, for each single one of them. When knowledge is so expensive, one can either choose to remain an ignorant goat or click on the magnet link and open the P2P session right away. Of course, I didn't choose the latter option. I am an honest, goat-looking, law-abiding citizen and I profoundly discourage copyright infringement.
+                    But for the sake of what comes next, let’s pretend I did open the chest and got my hands on the gemstones and the jewelry. After the burst of euphoria, two questions would come to mind: (a) what am I going to use all this stolen fortune for? and (b) <strong>who the hell put it there in the first place</strong> – i.e., what other pirate am I stealing it from? To answer this second dilemma, if I did open the chest, I’d use document metadata analysis tools, such as Exiftool or Strings. And since I have recently learned some tricks with both, I thought I could make a post about them.
+                </p>
+                <div class="center">
+                    <img class="big_image" src="images/goat.png">
+                    <p class="pic_description">Picture of a goat</p>
+
+                </div>
+                <h6 class="titleh" id="part2">What we look for in metadata</h6>
+                <hr class="black-line">
+                <p>The stuff we use to create, modify and handle files embed a bunch of metadata within such files. In paleography, the type of paper and writing materials can be analyzed to determine the historical dating and context of an antique artifact. In some sense, that’s metadata too. We do the same, but with digital artifacts. So what do we look for? Well anything, really… but in particular: </p>
+                <ul>
+                    <li>
+                        <strong>Usernames.</strong> Usernames related to the analyzed file are the starting point for further investigations. Also, they can be pretty useful when it comes to password guessing.
+                    </li>
+                    <li>
+                        <strong>E-mail addresses.</strong> An attacker would use these for phishing, a tester for ethical phishing tests. One could also use the recovered addresses to look for leaked credentials from previous breaches (here, I recommend a quick check on haveibeenpwned.com first).
+                    </li>
+                    <li>
+                        <strong>File system paths.</strong> Knowing the full path of the original file when it was created can reveal hints about the OS, important critical directories, and common practices of the given user.
+                    </li>
+                    <li>
+                        <strong>Client-side software in use.</strong> Knowing which tools and programs were used to handle the analyzed files can be cool (e.g., office suite, PDF-generating tool, camera models used to take pictures, etc). Tools and tools versions might indicate vulnerabilities, that goes without saying.
+                    </li>
+                    <li>
+                        <strong>Other information.</strong> Other useful information about the file (e.g., undo information, previous revisions, hidden collapsed column in a spreadsheet) or who created it (e.g., timestamps).
+                    </li>
+                </ul>
+                <p>
+                    Typically, in a network VA/PT, the initial phases of reconnaissance involve looking for useful bits of information about the target organization through document metadata analysis. In that case, documents are retrieved in three main ways:
+                </p>
+                <ul>
+                    <li>By <strong>asking</strong> politely, </li>
+                    <li>Implicitly, <strong>during the formal preparation of the test</strong> (e.g., rules of engagement agreements, scope information, non-disclosure agreements, contracts, policies, etc.),</li>
+                    <li>By <strong>scraping the website</strong> of the organization.</li>
+                </ul>
+                <p> The easiest way of scraping is with <strong>wget</strong>, for example like this: </p>
+
+                <div class="code_content">
+                    <code>
+                        wget -nd -r -R html,png,jpeg -P [/../MYPATH] [target domain]   <br />
+                    </code>
+                </div>
+                <br />
+                <p>
+                    Where...<br />
+                    <strong>-nd</strong> stands for “no directories", it means you don’t wanna create a hierarchy of directories when downloading files.<br />
+                    <strong>-r</strong> stands for follow recursively all links within the specified URL until you reach the end of the links.<br />
+                    <strong>-R html, png, jpeg</strong> means reject (-R) downloading the files with the specified extensions.<br />
+                    <strong>P [/…/MY PATH]</strong>- specifies the path to the directory where the downloaded files will be stored.<br />
+                    <strong>[target domain]</strong> is clearly the domain of the website from which to pull the files.<br />
+
+                </p>
+                <p>For example: </p>
+                <div class="center">
+                    <img src="images/1.png" width="100%">
+                </div><br />
+                <p>Alternatively, if you want to specify the extensions to pull instead of the ones to reject, you can substitute the -R with the <strong>-A</strong> option. </p>
+
+
+                <h6 class="titleh" id="part3">What we are going to use</h6>
+                <hr class="black-line">
+                <p>
+                    Anyways, we are not going to scrape anything here. Let's instead assume that we already got what we want to inspect.
+
+                    These are the two metadata analysis tools we are going to use:
+                </p>
+                <ul>
+                    <li>
+                        <strong>ExifTool</strong> (from Phil Harvey, runs on Linux, Windows and there should also be a version online)
+                    </li>
+                    <li>
+                        The <strong>strings command</strong>  (for Unix-like systems, simply displays printable text from files and it’s useful for finding unstructured data)
+                    </li>
+                </ul>
+
+                <h6 class="titleh" id="part4">The Indonesian thief</h6>
+                <hr class="black-line">
+                <p>Exiftool is quite straightforward. For example, let's go back to the hypothetical treasure chest and pick the first thing that comes to hand and let's run the following. </p>
+                <div class="code_content">
+                    <code>
+                        exiftool -a -G1 [FILE]   <br />
+                    </code>
+                </div><br />
+                <p>
+                    Where -a means we want to allow duplicate tags to be extracted, and -G1 specifies to print the group name for each tag.
+                    <br /><br />We'd obtain something like this:
+                </p>
+                <div class="center">
+                    <img src="images/2.png" width="100%">
+                </div><br />
+                <p>One command and we are already at a point where many questions arise.</p>
+                <p>Who the hell is <strong>16052941@BANK[...]</strong>? Let’s first search for domains that sound like BANK[…] and go from there. If we don't find anything, we can use waybackmachine or similar archives. We are lucky enough though, it turns out BANK[...] is some bank in Indonesia. </p>
+                <p>Let’s now look at the timestamps. If we focus on the pdf metadata we see it was created in February 2017 <strong>(2017:02:18 16:04:29+07:00)</strong>. If we instead look at the system metadata, the modification date/time indicates March 2017 <strong>(2017:03:27 08:19:08-04:00)</strong>. I am not sure, but I think the system metadata here indicates modifications at system level (so at inode level) while the pdf metadata refers to actual changes in the pdf file. So, for example, someone might have changed the pdf content in February and then renamed the same pdf file in March. This is all speculation, but who cares. </p>
+                <p>Notice how the pdf was created in a UTC+07:00 time zone, which is <strong>Indochina Time (ICT).</strong>. This region includes Vietnam, Cambodia, Laos, Thailand and (guess what) parts of Indonesia. So yes, the guy was probably an employee at this Indonesian BANK[…].</p>
+                <div class="center">
+                    <img src="images/3.png" width="100%">
+                    <p class="pic_description">UTC+07:00</p>
+                </div>
+                <p>We said last time someone modified the file at system level was 2017:03:27 08:19:08-04:00. Hey wait, here the time zone has changed again… now it’s <strong>UTC -04:00</strong>, which according to Wikipedia...</p>
+                <p><em>"is observed in the Eastern Time Zone (e.g., in Canada and the United States) during the warm months of daylight saving time, as Eastern Daylight Time. The Atlantic Time Zone observes it during standard time (cold months). It is observed all year in the Eastern Caribbean and several South American countries”.</em>  </p>
+                <p>What happened? Did our file move? Did the owner? We'll never know :c</p>
+                <div class="center">
+                    </p>
+                    <img src="images/4.png" width="100%">
+                    <p class="pic_description">UTC-04:00</p>
+
+                </div>
+                <p>Let’s focus now on that <strong>ApeosPort-V C2276</strong> in the creator tag. What the hell is that? After a quick search on google, it appears to be a printer. To be precise, the 2013 Fujifilm enterprise printer, possibly used for scanning the physical materials of the stolen courses. The scans have been later processed with the Adobe plugins (<strong>Adobe Acrobat Pro 11.0.12 Paper Capture Plug-in</strong>) turning them into pdf for the joy of the internet. What intelligence do we get from this? I don’t know, but look at this ApeosPort-V C2276 monster:</p>
+                <div class="center">
+                    <img class="big_image" src="images/5.png" width="100%">
+                    <p class="pic_description">ApeosPort-V C2276</p>
+
+                </div>
+
+
+                <p>
+                    We now know that the leaked pdf probably comes from a guy working in an Indonesian bank called BANK[…].  The guy scanned the physical course book with his company ApeosPort-V C2276 printer and then turned it into a pdf using Adobe Acrobat. We don’t know much else about his identity – for now – but, considering the cost of the course whose materials he has publicly disclosed (about 9000 bucks), one could assume he held a crucial position within the organization and it was the bank itself that decided to pay for this type of specialized education. Achieving such elevated ranks typically requires years of experience, suggesting that the individual - back in 2017 - must have already had a certain level of seniority within the organization. Finally – and this is perhaps the first thing that comes to mind – it is pretty probable that, after completing the course, the guy must have wanted to advertise this new achievement, maybe by posting the certification credentials within a public CV or directly on a Linkedin profile. <strong>That’s where we are going to play some "Guess Who?"</strong>. <br /><br />That's enough. I am wasting too much time on this man. I am not even sure he's a man. I don't care. I wanted to talk about metadata analysis, so let's continue with Exiftool.
+                </p>
+                <div class="center">
+                    <img class="big_image" src="images/6.png" width="100%">
+                    <p class="pic_description">Guess who?</p>
+
+                </div>
+
+                <h6 class="titleh" id="part5">Exiftool to cast wider nets</h6>
+                <hr class="black-line">
+                <p>
+                    We might have many files to inspect. So, what if <strong>we want to be faster</strong>? Let’s see some other useful spells.
+                    We can Exiftool on a whole directory, for all the contained files, recursively (-r). And then we grep just what we are interested in. Like this:
+                </p>
+
+                <div class="code_content">
+                    <code>
+                        exiftool -r [DIRECTORY] | grep ‘Something’
+                    </code>
+                </div><br />
+
+                <p>So, for example, instead of picking whatever from the treasure chest, let’s run exiftool on the whole fortune and grep for the Author tag. We are going to have a lot of duplicates, so let’s remove them by piping sort -u. </p>
+
+                <div class="center">
+                    <img src="images/7.png" width="100%">
+                </div><br />
+
+                <p>Look how much fish we got. Time to start looking for these people’s face. I spare you that part of our investigation, but it’s literally the easiest thing to do. People really seem to enjoy posting pictures of themselves.</p>
+
+                <p>Note that if we want to focus our analysis on the precise files handled by – for example – the user […]ox, we can just use the following syntax: </p>
+
+                <div class="code_content">
+                    <code>
+                        exiftool [DIRECTORY] -if ' [TAG] eq "something" '
+                    </code>
+                </div><br />
+                <p>For example:</p>
+                <div class="center">
+                    <img src="images/8.png" width="100%">
+                </div><br />
+
+
+                <h6 class="titleh" id="part6">Strings, regex and phishing</h6>
+                <hr class="black-line">
+                <p>
+                    Strings command simply displays printable text from files. So let’s do it.
+                </p>
+                <div class="code_content">
+                    <code>
+                        strings -n8 -el [FILE] | grep -i ‘something’
+                    </code>
+                </div><br />
+
+                <p>
+                    With <strong>-n8</strong> we set minimum length of strings to 8. We can change this too, clearly.
+                    With <strong>-e</strong> (“encoding”) we specify the character encoding of the strings to be displayed. We should set this as “l” (lowcase L, for little endian 16 bit characters) or as “b” (big endian 16 bit characters). If we omit -e option, strings looks for ASCII only.
+                    Little endian and big endian refer to the order by which we allocate the bytes in the virtual addresses of the RAM. I am not going to delve into this, also because I am an ignorant chimp when it comes to memory. Let’s just say that, to be safe, we normally run strings three times: once with -el, once with -eb, once without the option.
+
+                </p>
+
+                <p>
+                    If we run the following, we can observe how we pretty much find the same evidence uncovered by Exiftool.
+                </p>
+                <div class="center">
+                    <img src="images/9.png" width="100%">
+                </div><br />
+                <p>If you want to search specifically for anything that matches an <strong>email address</strong>, then you can use this regex (-E): </p>
+
+                <div class="code_content">
+                    <code>
+                        strings [FILE] | grep -Eo '[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}'
+                    </code>
+                </div><br />
+
+                <p>Or even better, you can do this recursively, starting from a certain directory, like this: </p>
+
+                <div class="code_content">
+                    <code>
+                        find . -type f -exec strings {} \; | grep -Eo '[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}'
+                    </code>
+                </div><br />
+                <p>
+                    Where... <br />
+                    <strong> find . -type f </strong>stands for “find me any file in the directory and subdirectories”;<br />
+                    <strong> -exec strings {} \;</strong> stands for “use strings on each file you find”;<br />
+                    <strong> | grep -Eo [Regex Pattern]</strong> stands for “within the strings output, search whatever matches the regex pattern (-E) and print out only that (-o), not the whole line”.
+
+                </p>
+                <p>
+                    Here’s an example of what happens if we run it on the treasure chest.
+                </p>
+
+                <div class="center">
+                    <img src="images/10.png" width="100%">
+                </div><br />
+                <p>At this point, for an attacker, <strong>phishing</strong> would be right around the corner. But we are not interested in that. </p>
+
+                <p>And if we want to look for paths? Nothing changes, the command is always the same. : </p>
+                <div class="code_content">
+                    <code>
+                        find . -type f -exec strings {} \; | grep -E 'C:\\'
+                    </code>
+                </div><br />
+                <p>Or more simply: </p>
+                <div class="code_content">
+                    <code>
+                        find . -type f -exec strings {} \; | grep -E '\\'
+                    </code>
+                </div><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="biblio_box">
+
+
+                    <h5 id="bibliography">👽 Related links 👽</h5>
+                    <p id="note">
+                        If you wanna know more about this stuff, these may be useful resources to begin with.
+                    </p>
+                    <hr class="black-line">
+
+                    <a href="https://exiftool.org/exiftool_pod.pdf">
+                        <p>
+                            <strong>ExifTool 12.77</strong> <br />User Contributed Perl Documentation <br />
+                        </p>
+                    </a>
+
+                    <a href="https://www.unix.com/man-page/osx/1/strings/">
+                        <p>
+                            <strong>Strings manual</strong> <br />Linux and UNIX Man Pages
+                            <br />
+                        </p>
+                    </a>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+            </div>  <! -- End of textual content -->
+
+
+            <br />
+
+
+        </div>
+        <a href="#top-of-page" class="top">Back to Top</a>
+
+
+
+
+
+    </div>
+
+
+
+
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="bottom">
+        Free icons from <a href="https://www.flaticon.com/"><u>flaticon.com</u></a>
+        <br />
+        Poorly built by <strong><a href="contacts.html">J.G. in 2024</a></strong>
+        <br />
+    </div>
+
+</body>
+</html>

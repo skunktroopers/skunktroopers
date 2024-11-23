@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BooyahBay</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <!-- Custom Styles -->
+    <link href="../style.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../../brand_logo.ico" />
+</head>
+
+<body id="top-of-page" class="container-fluid">
+
+    <!-- Navigation -->
+    <nav>
+        <div class="dropdown">
+            <button class="dropbtn">Details</button>
+            <div class="dropdown-content">
+                <a href="../about.html"><div class="icon_text"><img src="../images/about.png" width="20px" /></div>  About</a>
+                <a href="../contacts.html"><div class="icon_text"><img src="../images/contacts.png" width="25px" /></div>  Contact</a>
+                <a href="../../index.html"><div class="icon_text"><img src="../images/blog.png" width="22px" /></div>  Blog</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="title">
+            <h2><strong>Setting up Kali Linux in GNS3</strong></h2>
+            <h5>A brief (but painful) guide on how to build a security home lab</h5>
+
+        </div>
+
+
+    </header>
+
+    <div class="greyish" style="text-align:center">
+        <div class="row_project_page">
+            <div class="textual_content">
+                <div id="me">
+                    <img id="my_picture" src="../images/Me.png" />
+                    <p>
+                        <strong>Mr. Naraku</strong><br />
+                        Unexpert Bosun
+                    <p>
+                </div>
+
+
+                <div id="date">April 28th, 2024</div>
+                <p>
+                    This post will be a quick one, although it represents the result of long and particularly painful moments spent coursing at GNS3. Our objective is to begin setting up a security lab hosting whatever network appliances we need, along with a Kali Linux machine (i.e., our analysis station) to be used for testing. Let us all try to keep calm and not rock the damn boat.
+                </p>
+
+                <div class="index">
+                    <p>Here's the <strong>contents</strong>:</p>
+                    <p></p>
+                    <ul>
+                        <li>
+                            <a href="#part1">Simple topology and tools</a>
+                        </li>
+                        <li>
+                            <a href="#part2">Router and switch</a>
+                        </li>
+                        <li>
+                            <a href="#part3">Hypervisor configurations</a>
+                        </li>
+                        <li>
+                            <a href="#part4">Configuring the router</a>
+                        </li>
+                        <li>
+                            <a href="#part5">Configuring the VMs</a>
+                        </li>
+                        <li>
+                            <a href="#part6">Testing connections</a>
+                        </li>
+                        <li>
+                            <a href="#part7">Capturing traffic</a>
+                        </li>
+                        <li>
+                            <a href="#part8">Where's my internet?!</a>
+                        </li>
+
+                        <li>
+                            <a href="#bibliography">Related links</a>
+
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <h6 class="titleh" id="part1">Home lab topology and tools</h6>
+                <hr class="black-line">
+
+
+                <p>
+                    The following is just an example of configuring and setting up a security home lab in GNS3, using VirtualBox as hypervisor.
+
+                </p>
+                <p>
+                    <strong>Disclaimer 1</strong>: The topology we will deploy is simple: a router, a switch, and two virtual machines (Ubuntu Server and Kali Linux). If you were expecting more complexity, this post may not be for you. I am no expert of GNS3. Truth is, I am writing this stuff mostly for myself, as a reference in case of future necessities.
+
+                </p>
+                <p>
+
+                    <strong>Disclaimer 2</strong>: The home lab won't be connected to the internet. This is something <em>that we want</em>. In fact, we want to control the network completely, without having to worry about the security concerns arising from using it. It should be quite obvious that running a virtualized network containing intentionally vulnerable machines on your personal computer  will automatically turn the latter into an easy target. And since we are the only ones that want to fuck around with the vulnerabilities, we should use the whole lab while our platform is completely isolated. I know what you are thinking. "Oh but, what if I need to download tools that do not come preinstalled in my Kali machine?". Don't worry. You'll just need to (1) temporarily change the configurations of the hypervisor to allow the Kali VM to connect to the internet, (2) download whatever you need to, (3) reset the hypervisor configurations. I'll show this later.
+                </p>
+
+                <p>
+                    Anyways, let's cut the rambling. <strong>Disconnect your device from the network</strong>, open GNS3 and VirtualBox and let's begin.
+                </p>
+
+                <div class="center">
+                    <img class="big_image" src="images/1.PNG">
+                    <p class="pic_description">Picture of Russel Brand from Eric Andre show</p>
+                </div><br />
+                <p>
+                    Our network nodes are:
+                </p>
+
+                <ul>
+                    <li>
+                        <strong>The router</strong>. The router we are going to use is a Cisco 7200. You can download the appliance from the gns3 website, <strong><a href="https://gns3.com/marketplace/appliances/cisco-7200">here</a></strong>. I am not going to discuss how to import it into GNS3, you can find various tutorials online dealing with that. The router interface local IP address will be <strong>192.168.122.1/24</strong>.
+                    </li>
+                    <li>
+                        <strong>The switch</strong>. The switch is a simple Ethernet switch. The appliance is present in GNS3 by default.
+                    </li>
+                    <li>
+                        <strong>Kali Linux</strong>. Kali Linux OS obtained as pre-built Virtual Machines from kali.org, <strong><a href=”https://www.kali.org/get-kali/#kali-virtual-machines”> here</a></strong>. This machine will be our analysis and testing station, and it'll have the address <strong>192.168.122.3/24</strong>.
+                    </li>
+                    <li>
+                        <strong>Ubuntu Server</strong>. Ubuntu Server, which you can get from <a href="https://ubuntu.com/download/server"><strong>here</strong></a>. The server will have IP address <strong>192.168.122.2/24</strong>
+                    </li>
+                </ul>
+                <p>
+                    The figure below depicts a scheme of the topology we are going to implement.
+                </p>
+
+
+
+                <div class="center">
+                    <img src="images/05.png" width="100%">
+                </div><br />
+
+
+                <h6 class="titleh" id="part2">Router and switch</h6>
+                <hr class="black-line">
+                <p>
+                    So let’s start by importing the <strong>Cisco 7200 router </strong> from the appliances list on the left, like shown below.
+                </p>
+                <div class="center">
+                    <img src="images/3.png" width="100%">
+                </div><br />
+
+                <p>
+                    Next, we do the same with the Ethernet <strong>switch</strong>. First drag the appliance, next select “GNS3 VM” as the chosen server on which the virtualized switch functionality will run.
+                </p>
+                <div class="center">
+                    <img src="images/4.png" width="100%">
+                </div><br />
+                <p>
+                    We connect the two devices using the “add a link” button on the left. Also, by going on “View” > “Show/Hide interface labels” we can display the names of the interfaces we are using in the connection.
+                </p>
+                <div class="center">
+                    <img src="images/5.png" width="100%">
+                </div><br />
+                <p>
+                    For now, let’s leave the router and switch as they are and go ahead with deploying the two VMs and configuring the hypervisor.
+                </p>
+
+                <h6 class="titleh" id="part3">Hypervisor configurations</h6>
+                <hr class="black-line">
+
+                <p>
+                    Assuming here that VirtualBox and the VMs are installed and ready to be deployed, the steps we need to follow are…
+                </p>
+                <p>
+                    Open VirtualBox, select GNS3 VM and go to <strong>Settings</strong>.
+                </p>
+                <div class="center">
+                    <img src="images/6.png" width="100%">
+                </div><br />
+                <p>
+                    Once within the Settings panel, move to <strong>Network</strong> and configure <strong>Adapter 1</strong> with the parameters shown in the figure below.
+
+                    GNS3 VM needs to have a <em>NAT</em> adapter and <em>Paravirtualized Network (virtio-net)</em> to run properly, as discussed in this <strong>post</strong>. If we do not set the adapter to use network address translation, we'll encounter an error. I have to admit this confuses me, but hey, our physical device is disconnected anyway so let us not worry about that NAT for now.
+                </p>
+                <div class="center">
+                    <img src="images/7.png" width="100%">
+                </div><br />
+                <p>
+                    And now set the parameters for <strong>Adapter 2</strong>, like this. <em>Host Only Adapter</em> (<em>VirtualBox Host-Only Ethernet Adapter</em>), meaning we are connecting the VM to a network that only allows it to see the VM host (our device). Within the advanced options, select the Virtual Network Card <em>INTEL PRO/1000 MT Desktop</em> as adapter type.
+
+                </p>
+
+                <div class="center">
+                    <img src="images/8.png" width="100%">
+                </div><br />
+                <p>For both adapters check the <em>Cable Connected</em> option.</p>
+                <p>
+                    Good. Next let’s configure the <strong>adapters of our two VMs</strong>. Here I show how we do it with Kali Linux but the same applies to the Ubuntu Server or any other machine we want to add. First, let’s select the VM in VirtualBox and go to <em>Settings > Network > Adapter 1 </em>. We choose <em>Generic Driver</em> with <em> UDPTunnel </em> option. The type is <em> INTEL PRO/1000 MT Desktop</em> like before.
+                </p>
+                <div class="center">
+                    <img src="images/9.png" width="100%">
+                </div><br />
+                <div class="center">
+                    <img src="images/10.png" width="100%">
+                </div><br />
+                <p>
+                    As already mentioned, we do the same for the Ubuntu Server machine.
+                </p>
+                <div class="center">
+                    <img src="images/11.png" width="100%">
+                </div><br />
+                <p>
+                    Good. Now that we are good with VirtualBox configurations, we import the machines within our GNS3 lab. To do that, move to the appliance list on the left and click on the “+” button, <strong>New Template</strong>. Then <strong>Manually create a new template</strong>.
+                </p>
+                <div class="center">
+                    <img src="images/12.png" width="100%">
+                </div><br />
+                <p>
+                    Now in the next window, select <strong>VirtualBox VMs</strong> on the left. Click on <strong>New</strong>.
+                </p>
+                <div class="center">
+                    <img src="images/13.png" width="100%">
+                </div><br />
+                <p>
+                    Now go with <strong>Run this VirtualBox VM on my local computer</strong> and click Next again. From the list displayed, select the VM you want to import (i.e., Kali Linux or Ubuntu Server in our case). Then <strong>Finish</strong>.
+                </p>
+
+                <div class="center">
+                    <img src="images/14.png" width="100%">
+                </div><br />
+                <p>
+                    Now you should be able to see the VMs names in the appliances list on the left of GNS3 GUI. Drag them into the topology and connect them as we did before for the router and switch.
+                </p>
+
+                <div class="center">
+                    <img src="images/15.png" width="100%">
+                </div><br />
+                <p>
+                    We can finally start all the nodes in our lab.
+                </p>
+                <div class="center">
+                    <img src="images/16.png" width="100%">
+                </div><br />
+
+
+                <h6 class="titleh" id="part4">Configuring the router</h6>
+                <hr class="black-line">
+                <p>
+                    To configure the router, we open its console (right click on the router’s icon in GNS3 GUI) and run the following commands.
+                </p>
+
+                <div class="code_content">
+                    <code>
+                        enable<br />
+                        conf t<br />
+                        interface [NAME_OF_INTERFACE]<br />
+                        ip address 192.168.122.1 255.255.255.0<br />
+                        no shutdown<br />
+                        exit<br />
+                        exit<br />
+                        write memory
+                    </code>
+
+                </div>
+                <br />
+                <p>
+                    With <strong>enable</strong> we achieve administrative privileges for the device, entering EXEC mode. Then we specify the interface for which we want to define some settings. In our example, that’s <strong>f0/0</strong>. Here we specify the IP address and the subnet mask for the interface. Then we bring the interface up with <strong>no shutdown</strong>, allowing it to receive and send traffic. Finally, we exit the interface configuration and we exit the EXEC mode. We write the changes so that they can be maintained after reboot using <strong>write memory</strong>. If you wanna check if the configurations were saved successfully, type <strong>show interface brief</strong>.
+                </p>
+                <p>The following figure shows how it's done for our Cisco 7200.</p>
+                <div class="center">
+                    <img src="images/17.png" width="100%">
+                </div><br />
+
+                <h6 class="titleh" id="part5">Configuring the VMs</h6>
+                <hr class="black-line">
+                <p>Let's start from booting the Ubuntu Server. Once inside, we need to configure the interface's static IP address by running the following:</p>
+                <div class="code_content">
+                    <code>
+                        sudo ifconfig [INTERFACE_NAME] 192.168.122.2 netmask 255.255.255.0
+                    </code>
+                </div><br />
+                <p>Use <strong>ifconfig</strong> command to find the name of the interface and to check whether the changes are in place or not.</p>
+                <div class="center">
+                    <img src="images/18.png" width="100%">
+                </div><br />
+                <p>
+                    Now we do the exact same thing with Kali Linux. Here I used the GUI. You can go to <strong>Advanced Network Configuration</strong>, select <strong>Wired Connection 1</strong> > <strong>IPv4 Settings</strong> and add the static address.
+                </p>
+                <div class="center">
+                    <img src="images/21.png" width="100%">
+                </div><br />
+                <p>
+                    To enforce the changes, you might need to disconnect and reconnect the device. Use the icon on top right of the desktop. Run <strong>ifconfig</strong> again, to check if everything is working correctly.
+                </p>
+                <div class="center">
+                    <img src="images/23.png" width="100%">
+                </div><br />
+
+                <h6 class="titleh" id="part6">Testing connections</h6>
+                <hr class="black-line">
+
+
+                <p>
+                    We are ready to test the connections in our lab using the <strong>ping</strong> utility. For example...
+                    Let's <strong>ping the router and the Kali VM from our Ubuntu Server machine</strong>.
+                </p>
+                <div class="center">
+                    <img src="images/19.png" width="100%">
+                </div><br />
+                <div class="center">
+                    <img src="images/25.png" width="100%">
+                </div><br />
+                <p>
+                    Let's <strong>ping the Kali VM and Ubuntu Server from our router</strong>.
+                </p>
+                <div class="center">
+                    <img src="images/20.png" width="100%">
+                </div><br />
+                <div class="center">
+                    <img src="images/26.png" width="100%">
+                </div><br />
+                <p>
+                    Finally, let's <strong>ping from the Kali VM</strong>.
+                </p>
+                <div class="center">
+                    <img src="images/24.png" width="100%">
+                </div><br />
+                <p>
+                    Everything seems to work fine in terms of connections.
+                </p>
+
+                <div class="center">
+                    <img class="big_image" src="images/27.png" style="width:60%">
+                    <p class="pic_description">Home lab topology</p>
+                </div><br />
+
+                <h6 class="titleh" id="part7">Capturing traffic</h6>
+                <hr class="black-line">
+                <p>
+                    To capture traffic with <strong>Wireshark</strong>, we can just right click on the link between nodes in the GNS3 GUI and select <strong>Start Capture</strong>. The figure below shows an example of the captured ICMP echo requests and replies exchanged when pinging the Ubuntu Server from the Kali VM.
+                </p>
+                <div class="center">
+                    <img src="images/28.png" width="100%">
+                </div><br />
+                <p>
+                    Note that this doesn't stop us from running Wireshark also within the Kali VM, along with any other interesting tool we might want to test.
+                </p>
+
+                <h6 class="titleh" id="part8">Where's my internet?!</h6>
+                <hr class="black-line">
+
+                <p>
+
+                    As we pointed out at the beginning of this post, having a lab that is isolated from the internet might be a good choice in terms of security but also brings a disadvantage: you can’t download additional stuff onto your analysis station. This issue can be easily circumvented by temporarily changing the network settings for the VM from which we want to reach the internet, enabling Network Address Translation on the used adapter. An alternative that also appears to work is to enable a second adapter with NAT, like shown below.
+
+                </p>
+
+                <div class="center">
+                    <img src="images/30.png" width="100%">
+                </div><br />
+
+                <div class="center">
+                    <img src="images/29.png" width="100%">
+                </div><br />
+
+            <p>
+                That's it. I am tired of writing. Hopefully this will be helpful to someone in the future (me included).
+            </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="biblio_box">
+
+
+                    <h5 id="bibliography">👽 Related links 👽</h5>
+                    <p id="note">
+                        If you wanna know more about this stuff, these may be useful resources to begin with.
+                    </p>
+                    <hr class="black-line">
+
+                    <a href="https://docs.gns3.com/">
+                        <p>
+                            <strong>GNS3 Documentation</strong> <br />The official guide and reference for GNS3 <br />
+                        </p>
+                    </a>
+
+                    <a href="https://www.gns3.com/community/featured">
+                        <p>
+                            <strong>GNS3 Community</strong> <br />Useful threads here
+                            <br />
+                        </p>
+                    </a>
+
+                    <a href="https://www.virtualbox.org/wiki/Documentation">
+                        <p>
+                            <strong>Virtual Box Documentation</strong> <br />Some tutorials here
+                            <br />
+                        </p>
+                    </a>
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+            </div>  <! -- End of textual content -->
+
+
+            <br />
+
+
+        </div>
+        <a href="#top-of-page" class="top">Back to Top</a>
+
+
+
+
+
+    </div>
+
+
+
+
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="bottom">
+        Free icons from <a href="https://www.flaticon.com/"><u>flaticon.com</u></a>
+        <br />
+        Poorly built by <strong><a href="contacts.html">J.G. in 2024</a></strong>
+        <br />
+    </div>
+
+</body>
+</html>

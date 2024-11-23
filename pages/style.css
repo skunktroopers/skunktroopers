@@ -1,0 +1,910 @@
+
+body {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: "Poppins","Arial";
+    font-weight: 100;
+}
+
+@media (max-width: 1000px) {
+
+
+    nav {
+        display: grid;
+        justify-content: center;
+        padding-bottom: 10px !important;
+        padding-top: 20px !important;
+    }
+
+    .secondary_nav {
+        display: grid !important;
+        justify-content: center !important;
+        width: 100% !important;
+        border-radius: 0px 0px 20px 20px !important;
+    }
+
+    .lineInButton {
+        vertical-align: middle !important;
+    }
+
+
+    .dropdown {
+        width: 380px;
+        text-align: center !important;
+        padding: 10px 0px 10px 0px !important;
+    }
+
+    .dropdown-content {
+        width: 380px;
+    }
+
+
+
+    .title .disclaimer {
+        margin-right: -30px;
+        margin-left: -30px;
+    }
+
+    .title {
+        font-size: 15px !important;
+    }
+
+
+    .right {
+        width: 80% !important;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        background-color: #c0c7cc;
+    }
+
+
+
+    .left {
+        width: 20% !important;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+	
+	.small-right {
+        width: 65% !important;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        background-color: #c0c7cc;
+    }
+	
+    .big-left {
+        width: 35% !important;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .dropbtn {
+        text-align: center;
+        margin-left: 0px;
+        margin-bottom: 10px !important;
+    }
+
+    #BrandLogo {
+        width: 100% !important;
+        position:center;
+    }
+
+    .row {
+        margin: inherit;
+        padding: 30px 5% 0px 5% !important;
+    }
+
+    .row_project_page {
+        margin: inherit;
+        padding: 30px 5% 0px 5% !important;
+    }
+
+    #my_picture {
+        min-width: 20%;
+    }
+
+    #me {
+        margin-bottom: 20px;
+    }
+
+    .biblio_box {
+        margin: 10px 20px 10px 20px !important;
+        padding: 5px 7px 5px 7px;
+        background-color: #F5F5F5;
+        border-radius: 25px;
+        font-size: 16px;
+        text-align: center;
+        box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%) !important;
+    }
+
+
+    #bellamy {
+        margin: 4% 0% 0% 0% !important;
+        opacity: 0;
+        transform: scale(0.9);
+        animation: fadeInAndScaleUp 2s ease forwards;
+    }
+
+    .post_icon {
+        width: 80% !important;
+    }
+	
+	.person_icon {
+        width: 50% !important;
+    }
+
+    .big_image {
+        width: 80% !important;
+    }
+
+
+    .center {
+        text-align: center;
+    }
+
+    .strong {
+        font-weight: bold;
+    }
+	
+	.poem-container {
+    font-family: 'Garamond', serif;
+	font-size:16px !important;
+    direction: ltr;
+    text-align: center;
+	font-weight: 500;
+    padding: 18px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+}
+
+
+
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.post_icon {
+    width: 60%;
+}
+
+.person_icon {
+    width: 30%;
+  }
+
+header {
+    padding: 80px 0px 80px 0px;
+    text-align: center;
+    background: #fdfffc;
+    animation: gradient 15s ease infinite;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 6%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    z-index: 1;
+    position: relative;
+    font-size: 10px;
+}
+
+
+
+nav {
+    text-align: left;
+    background: #fdfffc;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 6%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    z-index: 2;
+    position: relative;
+    padding: 0px 10px 0px 10px;
+}
+
+
+.secondary_nav {
+    text-align: left;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    z-index: 1;
+    position: relative;
+    padding: 0px 10px 0px 10px;
+    display: block;
+    background-color: #DCDCDC;
+    border-radius: 0px 0px 20px 0px;
+    background: linear-gradient(90deg, rgba(0,41,105,1) 0%, rgba(6,118,147,1) 49%, rgba(6,182,109,1) 100%);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    width: 56.6%;
+    box-shadow: 0 10px 5px 0 rgb(0 0 0 / 16%), 0 -10px 10px 0 rgb(0 0 0 / 12%);
+}
+
+    .secondary_nav .dropdown:hover {
+        opacity: 0.9;
+    }
+
+.greyish {
+    background-color: #F3F2F2;
+    padding: 20px 0px 40px 0px;
+}
+
+.dropbtn {
+    background-color: inherit;
+    padding: 20px 10px 10px 20px;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    width: 154px;
+    border: hidden;
+    cursor: pointer;
+    vertical-align: baseline;
+}
+
+.lineInButton {
+    background-color: white;
+    height: 4px;
+    width: 10%;
+    border-radius: 20px;
+    display: inline-block;
+    text-align: center;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    float: right;
+    text-align: center;
+    margin-bottom:0px;
+    padding:0px 0px 0px 0px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #F8F8F8;
+    border-radius: 0px 0px 20px 20px;
+    min-width: 154px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 16px 16px;
+        text-decoration: none;
+        display: block;
+        border-radius: 20px 20px 20px 20px;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #E8E8E8;
+        }
+
+.dropdown:hover {
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: transparent;
+        opacity: 0.5;
+    }
+
+    .dropdown:hover .lineInButton {
+        width: 20%;
+        opacity: 0.4;
+    }
+
+.logo {
+    position: relative;
+    display: inline;
+    vertical-align: super;
+    text-align: center;
+}
+
+
+.title {
+    margin: 0px 20% 0px 20%;
+    color: black;
+    font-size: 18px;
+}
+
+.disclaimer {
+    margin: 0px 20% 0px 20%;
+    color: #11af09;
+}
+
+
+.row {
+    margin: inherit;
+    padding: 30px 15% 0px 15%; 
+
+}
+
+.column {
+    padding: 10px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 0px 0px 0 rgb(0 0 0 / 12%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centering y-axis */
+    align-items: flex-start; /* Centering x-axis */
+    color: black;
+}
+
+
+.no_shadow {
+    box-shadow: none !important;
+}
+
+
+
+
+.right {
+    width: 90%;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #fdfffc;
+}
+
+
+
+.left {
+    width: 10%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #fdfffc;
+}
+
+
+.small-right {
+    width: 80%;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #fdfffc;
+}
+
+
+
+.big-left {
+    width: 20%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #fdfffc;
+}
+
+
+.project_logo {
+    transition: transform .7s ease-in-out;
+}
+
+    .project_logo:hover {
+        animation: shake 0.5s;
+        transform: rotate(0deg); /* Reset the transform to its original state */
+    }
+
+@keyframes shake {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.project_description {
+    padding:10px;
+    position: relative;
+    text-align:left !important;
+    font-size:15px;
+	width: 100%; /* or any specific width */   
+}
+
+.person_description {
+    padding:3px;
+    position: relative;
+    text-align:left !important;
+    font-size:13px;
+	margin-bottom: -25px;
+	width: 100%;	/* or any specific width */	
+}
+
+
+.bottom {
+    padding: 10px 20px 10px 20px;
+    text-align: right;
+    background: #fdfffc;
+    animation: gradient 15s ease infinite;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 6%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    z-index: 1;
+    position: relative;
+    margin-bottom: 0%;
+    font-size: 12px;
+    color: black;
+}
+
+
+#BrandLogo {
+    transition: all 0.5s linear;
+}
+
+    #BrandLogo:hover {
+        transform: translateY(-6px);
+    }
+
+
+.white_text{
+    color:white !important;
+}
+
+
+.plain_text {
+    font-size:16px;
+    justify-content:center;
+}
+
+
+.row_project_page {
+    margin: inherit;
+    padding: 30px 20% 0px 20%;
+}
+
+.textual_content {
+    font-family: "Poppins";
+    font-size: 16px;
+    text-align:justify;
+    text-justify:inter-word !important;
+    }
+
+
+.code_content {
+    text-align: left !important;
+    padding: 15px 0px 15px 20px !important;
+    max-width: 100%;
+    background-color: black;
+    border-radius: 10px;
+    font-size: 18px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+code {
+    font-family: Consolas, "courier new";
+    color: springgreen;
+    background-color: inherit;
+    padding: 2px;
+}
+
+
+output {
+    font-family: monospace;
+    color: dimgrey;
+    background-color: inherit;
+    padding: 2px;
+}
+
+#date {
+    text-align: right;
+    font-family: "Poppins";
+    font-size: 14px;
+    font-style:oblique;
+    text-decoration: black wavy underline;
+    padding-bottom:25px;
+    margin-right:4%;
+}
+
+#type {
+    text-align:right;
+    text-decoration:underline;
+    color: darkred;
+}
+
+#score {
+    text-align:right;
+    color: #1985a1;
+}
+
+
+
+
+#me {
+    display: flex;
+    font-family: "Poppins";
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+#me p {
+    margin: 10px 0px 0px 20px !important;
+    
+}
+
+
+#my_picture {
+    margin-left:3%;
+    width: 8%;
+}
+
+.icon_text {
+    display:inline;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: darkgrey;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.center {
+    text-align:center;
+}
+
+.figure {
+    padding:10px 0px 35px 0px;
+}
+
+
+
+.biblio_box {
+    margin: 25px 30px 40px 30px;
+    padding: 15px 20px 15px 20px;
+    background-color: lightgrey;
+    border-radius: 5px;
+    font-size: 17px;
+    text-align: center;
+    box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%) !important;
+}
+
+    .biblio_box img {
+        box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%), 0 10px 10px 0 rgb(0 0 0 / 12%) !important;
+    }
+
+.black-line {
+    border: none;
+    border-top: 2px solid black; 
+    margin: 15px 0; 
+    
+}
+
+
+#note {
+    font-size:15px;
+}
+
+
+rel {
+    color: red;
+}
+
+
+
+.titleh {
+    color: black !important;
+    font-size:20px;
+    text-align:left;
+    padding-top:27px;
+    padding-bottom:0px;
+    margin-bottom:-10px;
+    font-weight: bold;
+
+}
+
+mark {
+    margin: 0 -0.4em;
+    padding: 0.1em 0.4em;
+    border-radius: 0.8em 0.3em;
+    background: transparent;
+    background-image: linear-gradient( to right, rgba(255, 225, 0, 0.1), rgba(255, 225, 0, 0.7) 4%, rgba(255, 225, 0, 0.3) );
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+
+
+.index ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.index li {
+    background: url("images/checked.png") no-repeat top left;
+    background-size: 20px;
+    padding-left: 30px;
+    margin-bottom: 3px !important;
+    line-height: 1.3;
+}
+
+li strong {
+    font-weight: bold; 
+}
+
+
+p strong {
+    font-weight: bold; 
+}
+
+
+
+.index a {
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+}
+
+    .index a:hover {
+        color: red;
+    }
+
+
+    .index a::before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: darkred;
+        transform: scaleX(0);
+        transform-origin: top left;
+        transition: transform 0.3s ease;
+    }
+
+.index a:hover::before {
+    transform: scaleX(1);
+}
+
+
+
+.index {
+    color: black;
+    background-color: none;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+    #box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%) !important;
+    margin:0px 20px 0px 20px;
+}
+
+.title_icon {
+    margin: 0px 0px -10px 0px;
+    transition: transform .7s ease-in-out;
+}
+
+
+    .title_icon:hover {
+        background: transparent;
+        opacity: 0.75;
+        top: 0;
+        left: 0;
+        transition: opacity .25s ease-in-out;
+        -moz-transition: opacity .25s ease-in-out;
+        -webkit-transition: opacity .25s ease-in-out;
+
+    }
+
+
+variab {
+    color: #847a85;
+}
+
+.top {
+    text-decoration: none;
+    padding: 10px;
+    opacity: 0.70;
+    font-family: Poppins;
+    color: #fff;
+    background: black;
+    border-radius: 100px;
+    position: sticky;
+    bottom: 20px;
+    transition: transform .7s ease-in-out;
+    box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%) !important;
+}
+
+    .top:hover {
+        opacity: 0.55;
+        top: 0;
+        left: 0;
+        color: white;
+        transition: opacity .25s ease-in-out;
+        -moz-transition: opacity .25s ease-in-out;
+        -webkit-transition: opacity .25s ease-in-out;
+    }
+
+
+#bellamy {
+    margin: 2% 25% 0% 25%;
+    opacity: 0; 
+    transform: scale(0.9); 
+    animation: fadeInAndScaleUp 2s ease forwards; 
+}
+
+@keyframes fadeInAndScaleUp {
+    from {
+        opacity: 0; 
+        transform: scale(0.9); 
+    }
+
+    to {
+        opacity: 1; 
+        transform: scale(1); 
+    }
+}
+
+
+.project_date {
+    text-align: right;
+    margin-bottom:0px;
+    font-size: 12px;
+    font-weight:700;
+}
+
+
+.big_image {
+    width: 30%;
+    margin: 20px 10px 0px 10px;
+    box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%), 0 10px 10px 0 rgb(0 0 0 / 12%) !important;
+}
+
+
+.pic_description {
+    font-size: 12px;
+    margin-top:5px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+.separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 15% 9px 15%!important;
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 800;
+    position: relative;
+    text-align: center;
+    color:slategrey;
+
+    
+}
+
+.poem-container {
+    font-family: 'Garamond', serif;
+	font-size:18px;
+    direction: ltr;
+    text-align: center;
+	font-weight: 500;
+    padding: 18px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+}
+
+/* Add this CSS to your <style> section or external stylesheet */
+.highlight {
+    background-color: #fff9c4; /* Soft yellow background */
+    padding: 2px 4px;         /* Small padding to make the highlight stand out */
+    border-radius: 3px;       /* Optional: rounded corners for a softer look */
+}
+
+
+.cool_quote_font {
+    font-size: 17px; /* Slightly larger than your usual 16px */
+    font-family: 'Poppins', serif; /* A classic, elegant font for quotes */
+    line-height: 1.5; /* For better readability */
+    text-align: center; /* Center-align the quote */
+    font-style: normal; /* Italic style to enhance the quote's look */
+	font-weight: bold;
+    color: #333; /* A dark grey color for the text */
+}
+
+
+table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* Adjusting the width of the columns */
+    .colA {
+        width: 40%; /* Slightly longer */
+    }
+
+    .colB, .colC {
+        width: 30%;
+    }
+	
+
+    .table-container {
+        width: 90%; /* Adjust width as needed */
+        margin: 50px auto; /* Centers the div and adds margin to the top and bottom */
+        padding: 20px; /* Optional: Adds padding inside the div */
+        border: 1px solid #ddd; /* Optional: Adds a border around the div */
+        background-color: #f9f9f9; /* Optional: Adds a background color to the div */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+    }
+
+
+/* Paler golden effect for background */
+.golden {
+  background: linear-gradient(135deg, #FFF4C2, #F9D976, #E4C580);
+  background-size: 200% 200%;
+  animation: shine 5s infinite linear;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.silver {
+  background: linear-gradient(135deg, #F2F2F2, #DCDCDC, #BFBFBF);
+  background-size: 200% 200%;
+  animation: shine 5s infinite linear;
+}
+
+.copper {
+  background: linear-gradient(135deg, #D2B48C, #C0804D, #B87333);
+  background-size: 200% 200%;
+  animation: shine 5s infinite linear;
+}
+
