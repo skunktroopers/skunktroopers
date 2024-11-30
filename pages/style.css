@@ -776,6 +776,9 @@ variab {
     box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%), 0 10px 10px 0 rgb(0 0 0 / 12%) !important;
 }
 
+.shady_image {
+    box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%), 0 10px 10px 0 rgb(0 0 0 / 12%) !important;
+}
 
 .pic_description {
     font-size: 12px;
