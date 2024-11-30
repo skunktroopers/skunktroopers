@@ -348,6 +348,7 @@ nav {
 }
 
 
+
 .no_shadow {
     box-shadow: none !important;
 }
@@ -480,7 +481,7 @@ nav {
 .textual_content {
     font-family: "Poppins";
     font-size: 16px;
-    text-align:justify;
+    text-align:left;
     text-justify:inter-word !important;
     }
 
