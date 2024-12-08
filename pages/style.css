@@ -668,7 +668,7 @@ p strong {
 }
 
     .index a:hover {
-        color: red;
+        color: #008000;
     }
 
 
@@ -680,7 +680,7 @@ p strong {
         height: 2px;
         bottom: 0;
         left: 0;
-        background-color: darkred;
+        background-color: #008000;
         transform: scaleX(0);
         transform-origin: top left;
         transition: transform 0.3s ease;
