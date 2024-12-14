@@ -533,6 +533,14 @@ output {
     color: #1985a1;
 }
 
+#money {
+    text-align:center;
+    color: #00693E;
+    font-weight: bold;
+
+}
+
+
 
 
 
@@ -915,5 +923,56 @@ table {
   background: linear-gradient(135deg, #D2B48C, #C0804D, #B87333);
   background-size: 200% 200%;
   animation: shine 5s infinite linear;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.completion-bar-container {
+      position: relative;
+      margin: 20px auto;
+      width: 100%; /* Set the width as per your requirement */
+      background-color: #f0f0f0;
+      border-top: 1px solid #ccc;
+      height: 30px;
+      border-radius: 10px;
+    }
+.completion-bar {
+      height: 100%;
+      width: 0%; /* Initially set to 0% */
+      background-color: #00A86B;
+      transition: width 0.3s ease-in-out;
+      border-radius: 10px 0 0 10px;
+}
+
+.completion-text {
+      position: absolute;
+      font-family: 'Poppins', serif; /* A classic, elegant font for quotes */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 14px;
+      color: #333;
+      text-align: center;
 }
 

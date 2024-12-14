@@ -38,9 +38,9 @@
     <!-- Header -->
     <header>
         <div class="title">
-            <img src="../images/wip.png" width="100px">
+            <img src="../images/projects.png" width="100px">
             <div id="bellamy">
-                <h6> <strong>Projects</strong> </h6>
+                <h3> <strong>Skunk Projects</strong> </h3>
             </div>
 
         </div>
@@ -51,12 +51,42 @@
     <div class="greyish" style="text-align:center">
         <div class="row_project_page">
             <div class="textual_content center">
-                
+            
+            
+                    <!-- Project -->
+        <div class="row">
+            <div class="column left">
+                <div class="project_logo">
+                    <a href="./projects.html"><img class="post_icon" src="../images/kope.png" alt="" width="60%" /></a>
+                </div>
+            </div>
+            <div class="column right">
+
+                <div class="project_description">
+
+                        <h5><strong><u>Skunkers for Uganda</u></strong></h5>
+                        <p>SkunkTroopers is poor as fuck right now, but soon we’ll be organizing some fundraising initiatives. All the money we raise will be donated to a local volunteering association in Uganda, working on renovating water sources to ensure clean water for everyone. Our target amount is 150 euros, and every bit helps. <3</p>
 
 
-                <p style="padding:20% 5% 20% 5%">
-                This page is not ready yet :(
-                </p>
+
+					<p id="money">Objective: 100€ - Raised: 3€</p>
+					<p id="money"></p>
+
+					
+                                  <div class="completion-bar-container">
+    <div class="completion-bar"></div>
+    <div class="completion-text"><p><strong>0%</strong></p></div>
+  </div>
+
+
+
+                </div>
+
+            </div>
+        </div><br><br><br><br><br><br><br><br>
+
+                            
+
 
 
 
@@ -89,4 +119,20 @@
     </div>
 
 </body>
+  <script>
+
+    const completionBar = document.querySelector('.completion-bar');
+    const completionText = document.querySelector('.completion-text');
+
+
+    function setCompletion(percent) {
+      const clampedPercent = Math.max(0, Math.min(100, percent)); // Ensure percentage is between 0 and 100
+      completionBar.style.width = clampedPercent + '%';
+      completionText.textContent = clampedPercent + '%';
+    }
+
+    // Initially set to 0%
+    setCompletion(3);
+  </script>
+
 </html>
