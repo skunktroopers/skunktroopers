@@ -486,23 +486,18 @@ nav {
     }
 
 
-.code_content {
-    text-align: left !important;
-    padding: 15px 0px 15px 20px !important;
-    max-width: 100%;
-    background-color: black;
-    border-radius: 10px;
-    font-size: 18px;
-    overflow-x: auto;
-    white-space: nowrap;
-}
-
+pre {
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        
 code {
-    font-family: Consolas, "courier new";
-    color: springgreen;
-    background-color: inherit;
-    padding: 2px;
-}
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+
+        }
 
 
 output {
