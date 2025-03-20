@@ -9,6 +9,15 @@ body {
 
 @media (max-width: 1000px) {
 
+	.polaroid-description {
+	    font-family: "Patrick Hand", "Courier New", Courier, monospace; 
+	    font-size: 12px !important;
+	    color: #333;
+	    text-align: center;
+	    margin-top: 10px;
+	    margin-bottom: -5px;
+	}
+
 
     nav {
         display: grid;
@@ -153,7 +162,7 @@ body {
     }
 	
 	.poem-container {
-    font-family: 'Garamond', serif;
+    font-family: 'Lora', serif;
 	font-size:16px !important;
     direction: ltr;
     text-align: center;
@@ -165,6 +174,9 @@ body {
     background-color: white;
     color: #333;
 }
+
+
+
 
 
 
@@ -613,6 +625,10 @@ rel {
     color: red;
 }
 
+.darkblue {
+    color: #00308F;
+}
+
 
 
 .titleh {
@@ -821,7 +837,7 @@ variab {
 }
 
 .poem-container {
-    font-family: 'Garamond', serif;
+    font-family: 'Courier New', serif;
 	font-size:18px;
     direction: ltr;
     text-align: center;
@@ -971,3 +987,11 @@ table {
       text-align: center;
 }
 
+.polaroid-description {
+    font-family: "Patrick Hand", "Courier New", Courier, monospace; 
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: -5px;
+}
